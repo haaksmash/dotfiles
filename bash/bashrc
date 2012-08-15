@@ -31,14 +31,14 @@ export EDITOR=/usr/bin/mvim
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
+alias ls='ls --color=auto'
+alias grep='grep --color'
+alias fgrep='fgrep --color'
+alias egrep='egrep --color'
 
 # MacPorts Installer addition on 2012-07-11_at_04:34:47: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
@@ -79,15 +79,14 @@ export PATH=${PATH}:/usr/local/pgsql/bin
 export PGDATA=/usr/local/pgsql/data
 
 
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion.d/git
+if [ -f /opt/local/etc/bash_completion.d/git ]; then
+    source /opt/local/etc/bash_completion.d/git
     export GIT_PS1_SHOWDIRTYSTATE=1
     export GIT_PS1_SHOWUPSTREAM=auto
 fi
 
-if [ -f ~/.git-flow-completion.bash ]; then
-    . ~/.git-flow-completion.bash
-fi
+
+source ~/.git-flow-completion.bash
 
 #export PS1="$BLACK[ \u@$RED\h $GREEN\w$RED_BOLD\$(parse_git_branch)\$(parse_svn_branch)$BLACK ] "
 
