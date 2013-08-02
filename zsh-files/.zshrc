@@ -45,3 +45,8 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+
+# enable powerline
+source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+export PATH=~/.vim/bundle/powerline/scripts:$PATH
+export PYTHONPATH=~/.vim/bundle/powerline:$PYTHONPATH

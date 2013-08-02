@@ -12,6 +12,9 @@ set t_Co=256
 if &term =~ 'xterm-color'
 	set t_ut=
 endif
+let g:Powerline_symbols = 'fancy'
+set nocompatible
+set laststatus=2
 
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
@@ -34,6 +37,10 @@ set ignorecase
 set smartcase
 set smarttab
 set hlsearch
+
+
+""" Powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 
 """ Handy remaps
