@@ -30,7 +30,6 @@ if v:version >= 703
 endif
 
 
-set backspace=indent,eol,start
 set showmode
 set number
 set numberwidth=1
@@ -41,8 +40,8 @@ set ruler
 
 set matchpairs+=<:>
 
-set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
 set list
+set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+,eol:$
 
 
 """ Searching and Patterns
