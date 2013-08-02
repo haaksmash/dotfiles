@@ -4,6 +4,11 @@ call pathogen#infect()
 call pathogen#helptags()
 let g:pymode_lint=0
 
+let mapleader=","
+set nobackup
+set noswapfile
+set pastetoggle=<F2>
+
 filetype plugin indent on
 syntax on
 
@@ -121,6 +126,15 @@ let g:ctrlp_show_hidden = 1
 :inoremap jj <Esc>
 nnoremap <silent> <F8> :TlistToggle<CR>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+nnoremap <leader>d :NERDTreeToggle<cr>
+
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
 
 """ Use the mouse
 set mouse=a
