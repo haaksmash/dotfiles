@@ -31,3 +31,6 @@
 [submodule "zsh-files/oh-my-zsh"]
 	path = zsh-files/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "vim-files/.vim/bundle/powerline"]
+	path = vim-files/.vim/bundle/powerline
+	url = https://github.com/Lokaltog/powerline.git
