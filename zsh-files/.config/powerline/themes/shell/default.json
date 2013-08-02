@@ -17,13 +17,13 @@
 	"segments": {
 		"left": [
 			{
-				"name": "virtualenv"
+				"name": "user"
 			},
 			{
 				"name": "hostname"
 			},
 			{
-				"name": "user"
+				"name": "virtualenv"
 			},
 			{
 				"name": "cwd",
