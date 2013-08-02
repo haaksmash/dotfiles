@@ -39,6 +39,7 @@ set hlsearch
 """ Handy remaps
 :noremap ; :
 :inoremap jj <Esc>
+nnoremap <silent> <F8> :TlistToggle<CR>
 
 """ Use the mouse
 set mouse=a
