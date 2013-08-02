@@ -10,3 +10,6 @@
 [submodule "vim-files/.vim/bundle/vim-eunuch"]
 	path = vim-files/.vim/bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
+[submodule "vim-files/.vim/bundle/nerdtree"]
+	path = vim-files/.vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
