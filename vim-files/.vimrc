@@ -105,6 +105,9 @@ endfunction
 """ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 
+""" CtrlP
+let g:ctrlp_show_hidden = 1
+
 """ Handy remaps
 :noremap ; :
 :inoremap jj <Esc>
