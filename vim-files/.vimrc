@@ -80,6 +80,14 @@ set statusline+=%#identifier#
 set statusline+=%m
 set statusline+=%*
 set statusline+=%{StatuslineTrailingSpaceWarning()}
+
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set laststatus=2
+
+
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
