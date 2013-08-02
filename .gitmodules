@@ -22,3 +22,6 @@
 [submodule "vim-files/.vim/bundle/python-mode"]
 	path = vim-files/.vim/bundle/python-mode
 	url = https://github.com/klen/python-mode.git
+[submodule "vim-files/.vim/bundle/vim-lucius"]
+	path = vim-files/.vim/bundle/vim-lucius
+	url = https://github.com/jonathanfilip/vim-lucius.git
