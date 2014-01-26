@@ -28,6 +28,7 @@
 [submodule "vim-files/.vim/bundle/taglist"]
 	path = vim-files/.vim/bundle/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
+	ignore = untracked
 [submodule "zsh-files/oh-my-zsh"]
 	path = zsh-files/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
@@ -49,3 +50,4 @@
 [submodule "vim-files/.vim/bundle/vim-multiple-cursors"]
 	path = vim-files/.vim/bundle/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors.git
+	ignore = untracked
