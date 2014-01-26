@@ -51,3 +51,12 @@
 	path = vim-files/.vim/bundle/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors.git
 	ignore = untracked
+[submodule "vim-files/.vim/bundle/neocomplcache-ultisnips"]
+	path = vim-files/.vim/bundle/neocomplcache-ultisnips
+	url = https://github.com/JazzCore/neocomplcache-ultisnips.git
+[submodule "vim-files/.vim/bundle/neocomplcache"]
+	path = vim-files/.vim/bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.vim.git
+[submodule "vim-files/.vim/bundle/numbers"]
+	path = vim-files/.vim/bundle/numbers
+	url = https://github.com/myusuf3/numbers.vim.git
