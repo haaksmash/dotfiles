@@ -138,3 +138,5 @@ map <C-l> <C-w>l
 """ Use the mouse
 set mouse=a
 
+" Powerline!
+set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
