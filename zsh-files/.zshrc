@@ -46,10 +46,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# enable powerline
-# source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
-# export PATH=~/.vim/bundle/powerline/scripts:$PATH
+# Powerline!
+#. ~/dotfiles/misc-files/powerline/powerline/bindings/zsh/powerline.zsh
 # export PYTHONPATH=~/.vim/bundle/powerline:$PYTHONPATH
+#
 export EDITOR=vim
-export PATH=$PATH:~/play-2.1.3/
-export PATH=$PATH:~/idea-IC-129.713/bin
