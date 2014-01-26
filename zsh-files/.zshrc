@@ -51,3 +51,5 @@ source $ZSH/oh-my-zsh.sh
 # export PATH=~/.vim/bundle/powerline/scripts:$PATH
 # export PYTHONPATH=~/.vim/bundle/powerline:$PYTHONPATH
 export EDITOR=vim
+export PATH=$PATH:~/play-2.1.3/
+export PATH=$PATH:~/idea-IC-129.713/bin
