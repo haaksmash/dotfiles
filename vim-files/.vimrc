@@ -2,7 +2,23 @@ filetype off
 
 call pathogen#infect()
 call pathogen#helptags()
-let g:pymode_lint=0
+""" Python-Mode settings
+let g:pymode_lint=0 "don't syntax-check
+let g:pymode_lint_checker = "pyflakes, pep8"
+
+let g:pymode_rope=0 "don't rope autocomplete
+
+let g:pymode_breakpoint_cmd = 'import ipdb;ipdb.set_trace # FIXME: breakpoint!'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+""" End Python-Mode settings
 
 let mapleader=","
 set nobackup
@@ -112,9 +128,6 @@ function! StatuslineTrailingSpaceWarning()
 	endif
 	return b:statusline_trailing_space_warning
 endfunction
-
-""" Powerline
-""" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 
 """ CtrlP
