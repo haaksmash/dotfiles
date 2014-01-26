@@ -69,3 +69,6 @@
 [submodule "misc-files/powerline"]
 	path = misc-files/powerline
 	url = https://github.com/Lokaltog/powerline.git
+[submodule "vim-files/.vim/bundle/jedi-vim"]
+	path = vim-files/.vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
