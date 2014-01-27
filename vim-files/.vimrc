@@ -1,5 +1,3 @@
-filetype off
-
 call pathogen#infect()
 call pathogen#helptags()
 """ Python-Mode settings
@@ -8,7 +6,7 @@ let g:pymode_lint_checker = "pyflakes, pep8"
 
 let g:pymode_rope=0 "don't rope autocomplete
 
-let g:pymode_breakpoint_cmd = 'import ipdb;ipdb.set_trace # FIXME: breakpoint!'
+let g:pymode_breakpoint_cmd = 'import ipdb;ipdb.set_trace() # FIXME: breakpoint!'
 
 " syntax highlighting
 let g:pymode_syntax = 1
@@ -25,6 +23,7 @@ set nobackup
 set noswapfile
 set pastetoggle=<F2>
 
+filetype on
 filetype plugin indent on
 syntax on
 
@@ -139,6 +138,8 @@ let g:ctrlp_show_hidden = 1
 nnoremap <silent> <F8> :TlistToggle<CR>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nnoremap <leader>d :NERDTreeToggle<cr>
+map \q :q<CR>
+map \w :w<CR>
 
 
 " Easy window navigation
@@ -153,3 +154,8 @@ set mouse=a
 
 " Powerline!
 set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
+"
+" Don't show doc window when jedi autocompletes
+autocmd FileType python setlocal completeopt-=preview
+
+
