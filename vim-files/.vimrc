@@ -45,6 +45,10 @@ if v:version >= 703
 	set colorcolumn=+1 "mark the ideal max text width
 endif
 
+if v:version >= 704
+	let g:jedi#completions_enabled = 0
+endif
+
 
 set showmode
 set number
