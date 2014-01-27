@@ -46,7 +46,11 @@ if v:version >= 703
 endif
 
 if v:version >= 704
+	" use YCM for completions
 	let g:jedi#completions_enabled = 0
+	" let jedi handle showing prototypes and junk after completion is
+	" chosen
+	let g:ycm_autoclose_preview_window_after_completion = 0
 endif
 
 
