@@ -72,3 +72,6 @@
 [submodule "vim-files/.vim/bundle/jedi-vim"]
 	path = vim-files/.vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "vim-files/.vim/bundle/YouCompleteMe"]
+	path = vim-files/.vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
