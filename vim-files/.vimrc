@@ -1,7 +1,6 @@
 call pathogen#infect()
 call pathogen#helptags()
 """ Python-Mode settings
-let g:pymode_lint=0 "don't syntax-check
 let g:pymode_lint_checker = "pyflakes, pep8"
 
 let g:pymode_rope=0 "don't rope autocomplete
@@ -28,6 +27,7 @@ filetype plugin indent on
 syntax on
 
 colorscheme lucius
+
 set t_Co=256
 if &term =~ 'xterm-color'
 	set t_ut=
@@ -52,18 +52,24 @@ set background=dark
 set cursorline
 set cursorcolumn
 set ruler
+" do not redraw while macroing
+set lazyredraw
 
 set matchpairs+=<:>
 
 set list
 set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:+,eol:$
 
+" Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set clipboard=unnamed
 
 """ Searching and Patterns
 set ignorecase
 set smartcase
 set smarttab
 set hlsearch
+" Add the g flag to search/replace by default
+set gdefault
 
 """ Folding
 set nofoldenable
@@ -130,14 +136,14 @@ endfunction
 
 
 """ CtrlP
-let g:ctrlp_show_hidden = 1
+
 
 """ Handy remaps
-:noremap ; :
-:inoremap jj <Esc>
+noremap ; :
+inoremap jj <Esc>
 nnoremap <silent> <F8> :TlistToggle<CR>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-nnoremap <leader>d :NERDTreeToggle<cr>
+"nnoremap <leader>d :NERDTreeToggle<cr>
 map \q :q<CR>
 map \w :w<CR>
 
@@ -147,6 +153,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+" minimal number of lines to keep above/below cursorline
+set scrolloff=10
 
 
 """ Use the mouse
@@ -155,7 +165,25 @@ set mouse=a
 " Powerline!
 set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
 "
-" Don't show doc window when jedi autocompletes
-autocmd FileType python setlocal completeopt-=preview
+" Don't use tabs in python files
+autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 
-
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
