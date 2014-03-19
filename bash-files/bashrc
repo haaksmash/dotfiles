@@ -83,7 +83,7 @@ alias h=history
 alias kp="ps auxwww"
 
 # general path munging
-PATH=${PATH}:~/bin
+PATH=~/local/bin:${PATH}
 PATH=${PATH}:/usr/local/bin
 
 if [ -f /opt/local/etc/bash_completion.d/git ]; then
