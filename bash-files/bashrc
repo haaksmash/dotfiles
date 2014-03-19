@@ -7,17 +7,16 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+parse_git_dirty() {
+  [[ $(git-status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "(*)"
+}
+
+parse_git_stash() {
+	[[ $(git stash list 2> /dev/null | tail -n1) != "" ]] && echo "(^)"
+}
+
 parse_git_branch () {
-  git name-rev HEAD 2> /dev/null | sed 's#HEAD\ \(.*\)# (git::\1)#'
-}
-parse_svn_branch() {
-  parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' | awk '{print " (svn::"$1")" }'
-}
-parse_svn_url() {
-  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
-}
-parse_svn_repository_root() {
-  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
 }
 
 BLACK="\[\033[0;38m\]"
@@ -77,5 +76,5 @@ fi
 
 # configure my multi-line prompt
 export PS1="
-$BLACK[ \u@$RED\h $GREEN\w$RED_BOLD\$(parse_svn_branch)\$(__git_ps1 \" (%s)\") $BLACK]
+$BLACK[ \u@$RED\h $GREEN\w $RED_BOLD{ \$(parse_git_branch) \$(parse_git_dirty)\$(parse_git_stash) } $BLACK]
 > "
