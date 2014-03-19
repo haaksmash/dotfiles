@@ -83,17 +83,22 @@ alias h=history
 alias kp="ps auxwww"
 
 # general path munging
-PATH=~/local/bin:${PATH}
-PATH=${PATH}:/usr/local/bin
+PATH=~/pg/yelp-main/tools:$PATH
+PATH=~/local/bin:$PATH
 
 if [ -f /opt/local/etc/bash_completion.d/git ]; then
     source /opt/local/etc/bash_completion.d/git
-    export GIT_PS1_SHOWDIRTYSTATE=1
-    export GIT_PS1_SHOWUPSTREAM=auto
 fi
 
 # configure my multi-line prompt
 prompt_func() {
- PS1="\n$BLACK[ \u@$RED\h $GREEN\w$RED$(parse_git_branch)$BLACK]\n> "
+ PS1="\n"
+ PS1=$PS1"$BLACK[ \u@$RED\h $GREEN\w$RED$(parse_git_branch)$BLACK]"
+
+ PS1=$PS1"\n"
+ if [ "$YELP_IN_SANDBOX" ]; then
+  PS1=$PS1"(sandbox) "
+ fi
+ PS1=$PS1"> "
 }
 PROMPT_COMMAND=prompt_func
