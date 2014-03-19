@@ -21,7 +21,7 @@ parse_git_branch() {
   branch_pattern="^# On branch ([^${IFS}]*)"
   remote_pattern="# Your branch is (.*) of"
   diverge_pattern="# Your branch and (.*) have diverged"
-  if [[ ! ${git_status} =~ "working directory clean" ]]; then
+  if [[ ! ${git_status} =~ "nothing to commit" ]]; then
     state="${RED}!"
   else
     state=""
@@ -39,7 +39,7 @@ parse_git_branch() {
   fi
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
-    echo " $RED(${branch} ${remote}${state}) "
+    echo " $RED(${branch} ${remote}${state}$RED) "
   fi
 }
 
