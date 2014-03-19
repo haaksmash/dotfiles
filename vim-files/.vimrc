@@ -1,9 +1,14 @@
 call pathogen#infect()
 call pathogen#helptags()
-""" Python-Mode settings
-let g:pymode_lint_checker = "pyflakes, pep8"
 
-let g:pymode_rope=0 "don't rope autocomplete
+"""" PLUGIN SETTINGS
+
+""" Python-Mode settings
+let g:pymode_lint = 0
+let g:pymode_lint_checker = "pyflakes"
+
+" don't complete with rope
+let g:pymode_rope_completion = 0
 
 let g:pymode_breakpoint_cmd = 'import ipdb;ipdb.set_trace() # FIXME: breakpoint!'
 
@@ -13,9 +18,28 @@ let g:pymode_syntax_all = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
-" Don't autofold code
+" don't autofold code
 let g:pymode_folding = 0
 """ End Python-Mode settings
+
+" Syntastic
+let g:syntastic_python_checkers = ['pyflakes']
+
+" Powerline!
+set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
+"
+""" Easymotion
+map / <Plug>(easymotion-sn)
+map / <Plug>(easymotion-tn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+
+""" CtrlP
+
+""" Gundo
+map <leader>u :GundoToggle<CR>
+
+"""" END PLUGIN SETTINGS
 
 let mapleader=","
 set nobackup
@@ -74,43 +98,43 @@ set gdefault
 """ Folding
 set nofoldenable
 
-
+" disabled statusline because of powerline
 """ Statusline
-set statusline=   " clear the statusline for when vimrc is reloaded
-set statusline =%#identifier#
-set statusline+=%{fugitive#statusline()}
-set statusline+=[%f]    "tail of the filename
-set statusline+=%*
-
-"display a warning if fileformat isnt unix
-set statusline+=%#warningmsg#
-set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-set statusline+=%*
-
-"display a warning if file encoding isnt utf-8
-set statusline+=%#warningmsg#
-set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-set statusline+=%*
-
-set statusline+=%h      "help file flag
-set statusline+=%y      "filetype
-
-"read only flag
-set statusline+=%#identifier#
-set statusline+=%r
-set statusline+=%*
-
-"modified flag
-set statusline+=%#identifier#
-set statusline+=%m
-set statusline+=%*
-set statusline+=%{StatuslineTrailingSpaceWarning()}
-
-set statusline+=%=      "left/right separator
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set laststatus=2
+"set statusline=   " clear the statusline for when vimrc is reloaded
+"set statusline =%#identifier#
+"set statusline+=%{fugitive#statusline()}
+"set statusline+=[%f]    "tail of the filename
+"set statusline+=%*
+"
+""display a warning if fileformat isnt unix
+"set statusline+=%#warningmsg#
+"set statusline+=%{&ff!='unix'?'['.&ff.']':''}
+"set statusline+=%*
+"
+""display a warning if file encoding isnt utf-8
+"set statusline+=%#warningmsg#
+"set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+"set statusline+=%*
+"
+"set statusline+=%h      "help file flag
+"set statusline+=%y      "filetype
+"
+""read only flag
+"set statusline+=%#identifier#
+"set statusline+=%r
+"set statusline+=%*
+"
+""modified flag
+"set statusline+=%#identifier#
+"set statusline+=%m
+"set statusline+=%*
+"set statusline+=%{StatuslineTrailingSpaceWarning()}
+"
+"set statusline+=%=      "left/right separator
+"set statusline+=%c,     "cursor column
+"set statusline+=%l/%L   "cursor line/total lines
+"set statusline+=\ %P    "percent through file
+"set laststatus=2
 
 
 "recalculate the trailing whitespace warning when idle, and after saving
@@ -135,9 +159,6 @@ function! StatuslineTrailingSpaceWarning()
 endfunction
 
 
-""" CtrlP
-
-
 """ Handy remaps
 noremap ; :
 inoremap jj <Esc>
@@ -146,6 +167,7 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 "nnoremap <leader>d :NERDTreeToggle<cr>
 map \q :q<CR>
 map \w :w<CR>
+noremap Q <nop>
 
 
 " Easy window navigation
@@ -158,12 +180,11 @@ set nostartofline
 " minimal number of lines to keep above/below cursorline
 set scrolloff=10
 
-
 """ Use the mouse
 set mouse=a
 
-" Powerline!
-set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
+""" smart path
+set path=.,,**
 "
 " Don't use tabs in python files
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
