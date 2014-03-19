@@ -93,4 +93,7 @@ if [ -f /opt/local/etc/bash_completion.d/git ]; then
 fi
 
 # configure my multi-line prompt
-export PS1="\n$BLACK[ \u@$RED\h $GREEN\w$RED$(parse_git_branch)$BLACK]\n> "
+prompt_func() {
+ PS1="\n$BLACK[ \u@$RED\h $GREEN\w$RED$(parse_git_branch)$BLACK]\n> "
+}
+PROMPT_COMMAND=prompt_func
