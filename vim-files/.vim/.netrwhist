@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/nail/home/hsaxberg/pg/yelp-main/internalapi_cmds'
-let g:netrw_dirhist_2='/nail/home/hsaxberg/pg/yelp-main/yelp/clientlibs/elasticsearch'
