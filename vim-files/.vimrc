@@ -23,7 +23,7 @@ let g:pymode_folding = 0
 """ End Python-Mode settings
 
 " Syntastic
-let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_python_checkers = ['pyflakes', 'pep8', 'pep257']
 
 " Powerline!
 set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
@@ -33,7 +33,7 @@ map / <Plug>(easymotion-sn)
 map / <Plug>(easymotion-tn)
 map n <Plug>(easymotion-next)
 map N <Plug>(easymotion-prev)
-
+let g:EasyMotion_landing_highlight = 1
 """ CtrlP
 
 """ Gundo
