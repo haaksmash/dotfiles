@@ -72,3 +72,18 @@
 [submodule "vim-files/.vim/bundle/jedi-vim"]
 	path = vim-files/.vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "vim-files/.vim/bundle/vim-indent-guides"]
+	path = vim-files/.vim/bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "vim-files/.vim/bundle/vim-yankstack"]
+	path = vim-files/.vim/bundle/vim-yankstack
+	url = https://github.com/maxbrunsfeld/vim-yankstack.git
+[submodule "vim-files/.vim/bundle/vim-surround"]
+	path = vim-files/.vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim-files/.vim/bundle/syntastic"]
+	path = vim-files/.vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim-files/.vim/bundle/YouCompleteMe"]
+	path = vim-files/.vim/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
