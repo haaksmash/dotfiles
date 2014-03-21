@@ -34,7 +34,7 @@ Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'Valloric/YouCompleteMe'
-
+Bundle 'christoomey/vim-tmux-navigator'
 
 filetype plugin indent on     " required
 """ end vundle
@@ -214,12 +214,6 @@ map \q :q<CR>
 map \w :w<CR>
 noremap Q <nop>
 
-
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 " minimal number of lines to keep above/below cursorline
