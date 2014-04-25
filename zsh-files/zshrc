@@ -52,4 +52,5 @@ source $ZSH/oh-my-zsh.sh
 #
 
 alias vim="~/local/bin/vim"
+export PATH=~/local/bin:$PATH
 export EDITOR=vim
