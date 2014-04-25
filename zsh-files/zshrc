@@ -54,3 +54,30 @@ source $ZSH/oh-my-zsh.sh
 alias vim="~/local/bin/vim"
 export PATH=~/local/bin:$PATH
 export EDITOR=vim
+
+function branch_prompt {
+	BRANCH=$(current_branch)
+	SHA=$(command git rev-parse --short HEAD 2> /dev/null)
+	if [[ $SHA = $BRANCH ]]; then
+		echo "$(git_prompt_long_sha)"
+	else
+		echo "$(current_branch)$(git_prompt_short_sha)"
+	fi
+}
+
+ZSH_THEME_GIT_PROMPT_AHEAD=" %{$YELLOW%}⇈%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_BEHIND=" %{$YELLOW%}⇊%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_DIVERGED=" %{$YELLOW%}⇅%{$RESET_COLOR%}"
+
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$YELLOW%}[U]%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_MODIFIED=" %{$RED%}☢%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_UNMERGED=" %{$RED%}⑂%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_DELETED=" %{$RED%}[D]%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_RENAMED=" %{$YELLOW%}[R]%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_ADDED=" %{$GREEN%}⇶%{$RESET_COLOR%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$RED%}☢%{$RESET_COLOR%}"
+
+PROMPT='
+%{$fg_bold[green]%}[%n@%m] %{$fg[yellow]%}[%~]
+ %{$fg[blue]%}>%{$reset_color%} '
+RPROMPT='$(git_prompt_ahead)$(parse_git_dirty) $(branch_prompt)%{$reset_color%} %{$reset_color%}'
