@@ -28,7 +28,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'kien/ctrlp.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'myusuf3/numbers.vim'
-Bundle 'airblade/vim-gitgutter'
+Bundle 'mhinz/vim-signify'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'tpope/vim-surround'
@@ -142,45 +142,6 @@ set gdefault
 
 """ Folding
 set nofoldenable
-
-" disabled statusline because of powerline
-""" Statusline
-"set statusline=   " clear the statusline for when vimrc is reloaded
-"set statusline =%#identifier#
-"set statusline+=%{fugitive#statusline()}
-"set statusline+=[%f]    "tail of the filename
-"set statusline+=%*
-"
-""display a warning if fileformat isnt unix
-"set statusline+=%#warningmsg#
-"set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-"set statusline+=%*
-"
-""display a warning if file encoding isnt utf-8
-"set statusline+=%#warningmsg#
-"set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-"set statusline+=%*
-"
-"set statusline+=%h      "help file flag
-"set statusline+=%y      "filetype
-"
-""read only flag
-"set statusline+=%#identifier#
-"set statusline+=%r
-"set statusline+=%*
-"
-""modified flag
-"set statusline+=%#identifier#
-"set statusline+=%m
-"set statusline+=%*
-"set statusline+=%{StatuslineTrailingSpaceWarning()}
-"
-"set statusline+=%=      "left/right separator
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
-"set laststatus=2
-
 
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
