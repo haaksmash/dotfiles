@@ -50,4 +50,6 @@ source $ZSH/oh-my-zsh.sh
 #. ~/dotfiles/misc-files/powerline/powerline/bindings/zsh/powerline.zsh
 # export PYTHONPATH=~/.vim/bundle/powerline:$PYTHONPATH
 #
+
+alias vim="~/local/bin/vim"
 export EDITOR=vim
