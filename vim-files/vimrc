@@ -264,3 +264,44 @@ endfunc
 
 nnoremap <C-m> :call MoveToNextTab()<CR><C-w>H
 nnoremap <C-n> :call MoveToPrevTab()<CR><C-w>H
+
+function! RunTests(filename, test_path)
+    let tmux_pane = substitute(system("tmux display-message -p '#S'"),'\n','','')
+    let tmux_pane_target = tmux_pane."_testing:1.0"
+    echo tmux_pane_target
+
+    if a:test_path != ' '
+        let full_test_path = a:filename." ".a:test_path
+    else
+        let full_test_path = a:filename
+    endif
+
+    let command = ""
+    if l:tmux_pane == "checkout"
+        if l:full_test_path != " "
+            let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' tox ".full_test_path." 2>/dev/null' Enter"
+        else
+            let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' make test 2>/dev/null' Enter"
+        endif
+    else
+        if l:full_test_path != " "
+            let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' testify ".full_test_path."' Enter"
+        endif
+    endif
+	echo command
+    exec command
+	exec "redraw!"
+endfun
+
+function! StoreTestPath(filename, lineno)
+    let g:t= a:filename
+    " trololol sorry hbai
+    let g:f = system("python ~hbai/point_at_test/point_at_test.py ".shellescape(a:filename)." ".shellescape(a:lineno))
+    let g:f=substitute(strtrans(g:f),'\^@',' ','g')
+    echo g:t g:f
+endfun
+
+map <LEADER>s :call StoreTestPath(expand("%"), line("."))<CR>
+map <LEADER>T :w\|:call StoreTestPath(expand("%"), line("."))<CR>\|:call RunTests(g:t, g:f)<CR>
+map <LEADER>t :w\|:call RunTests(g:t, g:f)<CR>
+map <LEADER>m :call RunTests("", "")<CR>
