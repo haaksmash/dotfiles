@@ -76,6 +76,12 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+function in_sandbox {
+	if [ ! -z "${YELP_IN_SANDBOX}" ]; then
+		echo " (sandbox)"
+	fi
+}
+
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$YELLOW%}⇈%{$RESET_COLOR%}"
 ZSH_THEME_GIT_PROMPT_BEHIND=" %{$YELLOW%}⇊%{$RESET_COLOR%}"
 ZSH_THEME_GIT_PROMPT_DIVERGED=" %{$YELLOW%}⇅%{$RESET_COLOR%}"
