@@ -80,6 +80,9 @@ function in_sandbox {
 	if [ ! -z "${YELP_IN_SANDBOX}" ]; then
 		echo " (sandbox)"
 	fi
+	if [ ! -z "${SELENIUM_PORT}" ]; then
+		echo " (selenium)"
+	fi
 }
 
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$YELLOW%}⇈%{$RESET_COLOR%}"
