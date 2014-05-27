@@ -97,7 +97,11 @@ filetype on
 filetype plugin indent on
 syntax on
 
-colorscheme lucius
+try
+  colorscheme lucius
+catch
+  " deal with it
+endtry
 
 set t_Co=256
 if &term =~ 'xterm-color'
