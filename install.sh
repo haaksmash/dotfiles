@@ -6,13 +6,19 @@ main() {
 	# sore the calling directory to return later
 	CALLING_DIR=$PWD
 	cd $DIR
-    if [[ $1 == "--ycm" ]]; then
-		rm .youcompletemesetup
-		vim +BundleInstall +qall
-		setup_youcompleteme
-		exit 0
+	if [[ $1 == "--ycm" ]]; then
+		local vim_version=`vim --version | head -1 | cut -d " " -f 5`
+		if [[ $(echo "$vim_version >= 7.4" | bc) = 1 ]]; then
+			rm .youcompletemesetup
+			vim +BundleInstall +qall
+			setup_youcompleteme
+		else
+			echo "YCM requires vim 7.4 and up; you have ${vim_version}."
+		fi
+
 	else
 		install_everything
+
 	fi
 	cd $CALLING_DIR
 }
@@ -44,6 +50,9 @@ install_everything() {
 
 	create_local_bin
 	setup_local_symlinks
+
+	echo "sourcing rc files..."
+	source_rc_files
 }
 
 setup_gitmodules() {
@@ -53,8 +62,8 @@ setup_gitmodules() {
 }
 
 symlink_files() {
-	source_dir=$1
-	filenames=${@:2}
+	local source_dir=$1
+	local filenames=${@:2}
 
 	for filename in $filenames
 	do
@@ -90,7 +99,7 @@ setup_local_symlinks() {
 }
 
 setup_vim_symlink() {
-	vim_version=`vim --version | head -1 | cut -d " " -f 5`
+	local vim_version=`vim --version | head -1 | cut -d " " -f 5`
 	if [[ $(echo "$vim_version >= 7.4" | bc) = 1 ]]; then
 		ln -s `which vim` ~/local/bin/vim
 	else
@@ -100,6 +109,15 @@ setup_vim_symlink() {
 			echo "your new shellrc files will look for 'vim' in ~/local/bin, but this has not been setup for you."
 			rm -rf $DIR/vim-files/vim/bundle/YouCompleteMe
 		fi
+	fi
+}
+
+source_rc_files() {
+	local current_shell=$(ps -p $$ | grep `echo $$` | awk '{print $4}')
+	if [[ "$current_shell" == "zsh" ]]; then
+		source ~/.zshrc
+	elif [[ "$current_shell" == "bash" ]]; then
+		source ~/.bashrc
 	fi
 }
 
