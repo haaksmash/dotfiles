@@ -1,78 +1,70 @@
 #! /usr/bin/env bash
+set -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# sore the calling directory to return later
-CALLING_DIR=$PWD
-
-# update/init submodules
-cd $DIR
-echo "updating git modules..."
-git submodule init
-git submodule update --init --recursive
-
-# move vim stuff
-echo "setting up vim files..."
-for FILENAME in vimrc vim
-do
-	if [ -e $HOME/.$FILENAME ]; then
-		echo "Moving old .$FILENAME to .${FILENAME}.bak"
-		mv $HOME/.$FILENAME $HOME/.${FILENAME}.bak
-	fi
-	echo "linking $DIR/vim-files/$FILENAME $HOME/.$FILENAME"
-	ln -s $DIR/vim-files/$FILENAME $HOME/.$FILENAME
-done
-
-echo "installing bundles (vim will appear)..."
-vim +BundleInstall +qall
-
-# YouCompleteMe is slow to setup, so don't do it if we don't have to
-if [ -e $DIR/.youcompletemesetup ]; then
-	echo "YouCompleteMe already setup, skipping... (remove .youcompletemesetup to force)"
-else
-	echo "setting up YouCompleteMe..."
-	cd vim-files/vim/bundle/YouCompleteMe
-	./install.sh --clang-completer
+main() {
+	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+	# sore the calling directory to return later
+	CALLING_DIR=$PWD
 	cd $DIR
-	touch .youcompletemesetup
-fi
 
-# move tmux stuff
-echo "setting up tmux files..."
-for FILENAME in tmux.conf
-do
-	if [ -f $HOME/.${FILENAME} ] || [ -L $HOME/.$FILENAME ]; then
-		echo "Moving old .$FILENAME to .${FILENAME}.bak"
-		mv $HOME/.$FILENAME $HOME/.${FILENAME}.bak
+	echo "updating git modules..."
+	setup_gitmodules
+
+	echo "setting up vim files..."
+	symlink_files vim-files vimrc vim
+	echo "installing bundles (vim will appear)..."
+	vim +BundleInstall +qall
+	#setup_youcompleteme
+
+	echo "setting up tmux files..."
+	symlink_files tmux-files tmux.conf
+
+	echo "setting up bash files..."
+	symlink_files bash-files bashrc bash_profile
+
+	echo "setting up zsh files..."
+	symlink_files zsh-files zshrc oh-my-zsh
+
+	echo "setting up powerline..."
+
+	echo "setting up git files..."
+	symlink_files git-files gitconfig
+
+	cd $CALLING_DIR
+}
+
+setup_gitmodules() {
+	# assumes we're already in a git repo
+	git submodule init
+	git submodule update --init --recursive
+}
+
+symlink_files() {
+	source_dir=$1
+	filenames=${@:2}
+
+	for filename in $filenames
+	do
+		if [ -f $HOME/.${filename} ] || [ -L $HOME/.$filename ]; then
+			echo "Moving old .$filename to .${filename}.bak"
+			mv $HOME/.$filename $HOME/.${filename}.bak
+		fi
+		echo "linking $DIR/$source_dir/$filename $HOME/.$filename"
+		ln -s "$DIR/$source_dir/$filename" "$HOME/.$filename"
+	done
+}
+
+setup_youcompleteme() {
+	# YouCompleteMe is slow to setup, so don't do it if we don't have to
+	if [ -e $DIR/.youcompletemesetup ]; then
+		echo "YouCompleteMe already setup, skipping... (remove .youcompletemesetup to force)"
+	else
+		echo "setting up YouCompleteMe..."
+		cd vim-files/vim/bundle/YouCompleteMe
+		./install.sh --clang-completer
+		cd $DIR
+		touch .youcompletemesetup
 	fi
-	echo "linking $DIR/tmux-files/$FILENAME $HOME/.$FILENAME"
-	ln -s $DIR/tmux-files/$FILENAME $HOME/.$FILENAME
-done
+}
 
-echo "setting up bash files..."
-for FILENAME in bashrc bash_profile
-do
-	if [ -f $HOME/.${FILENAME} ] || [ -L $HOME/.$FILENAME ]; then
-		echo "Moving old .$FILENAME to .${FILENAME}.bak"
-		mv $HOME/.$FILENAME $HOME/.${FILENAME}.bak
-	fi
-	echo "linking $DIR/bash-files/$FILENAME $HOME/.$FILENAME"
-	ln -s $DIR/bash-files/$FILENAME $HOME/.$FILENAME
-done
-
-echo "setting up zsh files..."
-for FILENAME in zshrc oh-my-zsh
-do
-	if [ -f $HOME/.${FILENAME} ] || [ -L $HOME/.$FILENAME ]; then
-		echo "Moving old .$FILENAME to .${FILENAME}.bak"
-		mv $HOME/.$FILENAME $HOME/.${FILENAME}.bak
-	fi
-	echo "linking $DIR/zsh-files/$FILENAME $HOME/.$FILENAME"
-	ln -s $DIR/zsh-files/$FILENAME $HOME/.$FILENAME
-done
-
-# set up powerline
-echo "setting up powerline..."
-
-
-cd $CALLING_DIR
+main
