@@ -6,6 +6,17 @@ main() {
 	# sore the calling directory to return later
 	CALLING_DIR=$PWD
 	cd $DIR
+    if [[ $1 == "--ycm" ]]; then
+		rm .youcompletemesetup
+		setup_youcompleteme
+		exit 0
+	else
+		install_everything
+	fi
+	cd $CALLING_DIR
+}
+
+install_everything() {
 
 	echo "updating git modules..."
 	setup_gitmodules
@@ -29,8 +40,6 @@ main() {
 
 	echo "setting up git files..."
 	symlink_files git-files gitconfig
-
-	cd $CALLING_DIR
 }
 
 setup_gitmodules() {
@@ -67,4 +76,4 @@ setup_youcompleteme() {
 	fi
 }
 
-main
+main $@
