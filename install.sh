@@ -14,7 +14,7 @@ main() {
 	symlink_files vim-files vimrc vim
 	echo "installing bundles (vim will appear)..."
 	vim +BundleInstall +qall
-	#setup_youcompleteme
+	setup_youcompleteme
 
 	echo "setting up tmux files..."
 	symlink_files tmux-files tmux.conf
@@ -45,12 +45,12 @@ symlink_files() {
 
 	for filename in $filenames
 	do
-		if [ -f $HOME/.${filename} ] || [ -L $HOME/.$filename ]; then
-			echo "Moving old .$filename to .${filename}.bak"
-			mv $HOME/.$filename $HOME/.${filename}.bak
+		if [ -f $home/.${filename} ] || [ -l $home/.$filename ]; then
+			echo "moving old .$filename to .${filename}.bak"
+			mv $home/.$filename $home/.${filename}.bak
 		fi
-		echo "linking $DIR/$source_dir/$filename $HOME/.$filename"
-		ln -s "$DIR/$source_dir/$filename" "$HOME/.$filename"
+		echo "linking $dir/$source_dir/$filename $home/.$filename"
+		ln -s "$dir/$source_dir/$filename" "$home/.$filename"
 	done
 }
 
