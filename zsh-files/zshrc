@@ -65,6 +65,17 @@ function branch_prompt {
 	fi
 }
 
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    bg
+    zle redisplay
+  else
+    zle push-input
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
 ZSH_THEME_GIT_PROMPT_AHEAD=" %{$YELLOW%}⇈%{$RESET_COLOR%}"
 ZSH_THEME_GIT_PROMPT_BEHIND=" %{$YELLOW%}⇊%{$RESET_COLOR%}"
 ZSH_THEME_GIT_PROMPT_DIVERGED=" %{$YELLOW%}⇅%{$RESET_COLOR%}"
