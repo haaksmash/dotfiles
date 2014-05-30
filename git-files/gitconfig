@@ -1,0 +1,10 @@
+[user]
+	name = Haak Saxberg
+	email = haak.erling@gmail.com
+[color]
+	ui = auto
+[alias]
+	aa = add --all
+	dc = diff --cached
+	ff = merge --ff-only
+	fa = fetch --all
