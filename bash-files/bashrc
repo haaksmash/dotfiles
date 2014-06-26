@@ -84,7 +84,7 @@ alias kp="ps auxwww"
 
 # general path munging
 PATH=~/pg/yelp-main/tools:$PATH
-PATH=~/local/bin:$PATH
+PATH=~/local/bin:~/dotfiles/bin:$PATH
 
 if [ -f /opt/local/etc/bash_completion.d/git ]; then
     source /opt/local/etc/bash_completion.d/git

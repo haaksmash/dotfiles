@@ -52,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 alias vim="~/local/bin/vim"
-export PATH=~/local/bin:$PATH
+export PATH=~/local/bin:~/dotfiles/bin:$PATH
 export EDITOR=vim
 
 function branch_prompt {

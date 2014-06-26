@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -e
+. /nail/workflow/pushlib.sh
+
+main() {
+	PUSHBRANCH=$1
+
+	git fetch
+	git checkout "$PUSHBRANCH"
+	git reset --hard "origin/$PUSHBRANCH"
+
+	separator
+	MASTER_SHA=`git rev-parse --short origin/master`
+	git log --graph --oneline --color origin/master^..HEAD | sed "/$MASTER_SHA/q"
+	separator
+
+	echo "*** push this deploy branch into master?"
+	if yesno; then
+		push-to-master $PUSHBRANCH
+		cleanup-deploy-branch $PUSHBRANCH
+	fi
+}
+
+yesno() {
+    local answer
+    read -p 'y/n? ' answer
+    if [[ "$answer" == "y" ]]; then
+        return 0
+    elif [[ "$answer" == "n" ]]; then
+        return 1
+    else
+        yesno
+    fi
+}
+
+push-to-master() {
+	PUSHBRANCH=$1
+	colorize git checkout master
+	git pull origin master
+	colorize git merge --no-ff "$PUSHBRANCH"
+	git push origin master
+}
+
+cleanup-deploy-branch() {
+	PUSHBRANCH=$1
+	colorize git push origin :"$PUSHBRANCH"
+	colorize git branch -d $PUSHBRANCH
+}
+
+main $@
