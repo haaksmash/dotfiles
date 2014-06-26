@@ -262,9 +262,6 @@ function! MoveToNextTab()
   exe "b".l:cur_buf
 endfunc
 
-nnoremap <C-m> :call MoveToNextTab()<CR><C-w>H
-nnoremap <C-n> :call MoveToPrevTab()<CR><C-w>H
-
 function! RunTests(filename, test_path, debug)
     let tmux_pane = substitute(system("tmux display-message -p '#S'"),'\n','','')
     let tmux_pane_target = tmux_pane."_testing:1.0"
@@ -287,7 +284,7 @@ function! RunTests(filename, test_path, debug)
 		endif
 
         if l:full_test_path != "::"
-            let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' tox ".test_args.full_test_path." 2>/dev/null' Enter"
+            let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' tox ".test_args.full_test_path." -- --currency USD 2>/dev/null' Enter"
         else
             let command = "silent !tmux send-keys -t ".tmux_pane_target." C-c ' make test 2>/dev/null' Enter"
         endif
