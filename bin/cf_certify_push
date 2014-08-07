@@ -6,6 +6,11 @@ set -e
 main() {
 	PUSHBRANCH=$1
 
+	if [ -z "$STAGE" ]; then
+		echo "You must specify the \$STAGE variable."
+		exit 1
+	fi
+
 	git fetch
 	git checkout "$PUSHBRANCH"
 	git reset --hard "origin/$PUSHBRANCH"
@@ -15,10 +20,20 @@ main() {
 	git log --graph --oneline --color origin/master^..HEAD | sed "/$MASTER_SHA/q"
 	separator
 
-	echo "*** push this deploy branch into master?"
+	echo -e "${AQUA}*** push this deploy branch into master? ***${NORMAL}"
 	if yesno; then
 		push-to-master $PUSHBRANCH
+		DEPLOY_TAG=""
+		get-deploy-tag $DEPLOY_TAG
+		echo "Using $DEPLOY_TAG as the deploy tag"
+
+		deploy-to-testopia $DEPLOY_TAG
+		deploy-to-devc $DEPLOY_TAG
+		deploy-to-devb $DEPLOY_TAG
+
 		cleanup-deploy-branch $PUSHBRANCH
+
+		reminder
 	fi
 }
 
@@ -42,10 +57,43 @@ push-to-master() {
 	git push origin master
 }
 
+get-deploy-tag() {
+	DEPLOY_TAG=$1
+	DEPLOY_TAG=`deploy-srv-testopia -l --source="$STAGE" checkout_fulfillment | tail -1`
+	echo -e "${AQUA}*** Confirm this is the correct deploy-tag ***${NORMAL}"
+	echo -e "${RED}$DEPLOY_TAG${NORMAL}"
+
+	if yesno; then
+		return 0
+	else
+		exit 1
+	fi
+}
+
+deploy-to-testopia() {
+	DEPLOY_TAG=$1
+	colorize deploy-srv-testopia --no-prompt --source=$STAGE checkout_fulfillment $DEPLOY_TAG
+}
+
+deploy-to-devc() {
+	DEPLOY_TAG=$1
+	colorize deploy-srv-devc --no-prompt --source=$STAGE checkout_fulfillment $DEPLOY_TAG
+}
+
+deploy-to-devb() {
+	DEPLOY_TAG=$1
+	colorize deploy-srv-devb --no-prompt --source=$STAGE checkout_fulfillment $DEPLOY_TAG
+}
+
 cleanup-deploy-branch() {
 	PUSHBRANCH=$1
-	colorize git push origin :"$PUSHBRANCH"
-	colorize git branch -d $PUSHBRANCH
+	# colorize git push origin :"$PUSHBRANCH"
+	colorize git branch -D $PUSHBRANCH
+}
+
+reminder() {
+	figlet "Don't forget..."
+	echo "run the pushplans on the stage you didn't use!"
 }
 
 main $@
