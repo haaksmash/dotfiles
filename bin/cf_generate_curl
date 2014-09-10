@@ -1,0 +1,122 @@
+#!/usr/bin/env python
+import optparse
+
+
+CREDENTIALS = {
+    1: {'user': "yelp_test_user",
+        'password': "P5WSAhRHLnZ6IEHMDk9O/Q"},
+    2: {'user': "yelpv2",
+        'password': "password"},
+}
+
+HOSTS = {
+    'devc': "srv2-devc",
+    'devb': "srv2-devb",
+    'stagea': "stageaservices3",
+    'stageb': "stagebservices2",
+}
+
+CURL = {
+    2: "curl -X {method}{headers}{data} -u {user}:{password} http://{host}:13742/checkout/v2/orders/{order_id}/{action}\n",
+    1: "curl -X {method}{headers}{data} -u {user}:{password} http://{host}:13742/v1/checkout/order/{order_id}/{action}\n"
+}
+
+
+def show_curl_strings(options, args):
+    if options.update:
+        if len(args) == 2:
+            partner_business_id = None
+            stage, order_id = args
+
+        else:
+            stage, order_id, partner_business_id = args
+    else:
+        stage, order_id = args
+        partner_business_id = None
+
+    UPDATE_DATA_STRING = " -d \"{0}\"".format({
+        'notification_url': 'null',
+        'order': {
+            'delivery_address': {
+                'city': 'SF', 'state': 'CA', 'address1': '1234 test', 'zipcode': '12345', 'country': 'US'},
+            'delivery_type': 'DELIVERY_TYPE_DELIVERY',
+            'partner_business_id': partner_business_id,
+            'partner_order_id': 'partner_order_id',
+            'yelp_order_id': order_id,
+            'order_lines': [{'description': 'order line description',
+                            'price': {'amount':
+                                    '1.70',
+                                    'currency_code':
+                                    'USD'},
+                            'name': 'order line name',
+                            'quantity': 5,
+                            'type': 'ORDER_LINE_TYPE_ITEM',
+                            'partner_item_id': 'partner_item_id'},
+                            {'description': 'tax',
+                            'price': {'amount':
+                                        '0.07',
+                                        'currency_code':
+                                        'USD'},
+                            'name': 'tax',
+                            'quantity': 1,
+                            'type': 'ORDER_LINE_TYPE_TAX',
+                            'partner_item_id': 'null'}
+                            ]
+        }
+    }).replace("'null'", "null")
+
+    if options.capture:
+        print "charge\n\t", CURL[options.api].format(
+            method="POST",
+            headers=" -H ".join(["", "'Accept: application/json'"]),
+            data="",
+            user=CREDENTIALS[options.api]['user'],
+            password=CREDENTIALS[options.api]['password'],
+            host=HOSTS[stage],
+            order_id=order_id,
+            action="charge",
+        )
+
+    elif options.complete:
+        print "complete:\n\t", CURL[options.api].format(
+            method="POST",
+            headers=" -H ".join(["", "'Accept: application/json'"]),
+            data="",
+            user=CREDENTIALS[options.api]['user'],
+            password=CREDENTIALS[options.api]['password'],
+            host=HOSTS[stage],
+            order_id=order_id,
+            action="complete",
+        )
+
+    if options.update:
+        print "update:\n\t", CURL[options.api].format(
+            method="POST",
+            headers=" -H ".join(["", "'Accept: application/json'"]),
+            data=" -d ".join(["", '"' + str(options.data) + '"']) if options.data else UPDATE_DATA_STRING,
+            user=CREDENTIALS[options.api]['user'],
+            password=CREDENTIALS[options.api]['password'],
+            host=HOSTS[stage],
+            order_id=order_id,
+            action="update" if options.api == 1 else "updates",
+        )
+
+if __name__ == "__main__":
+    parser = optparse.OptionParser()
+    parser.add_option('--capture', dest='capture', action='store_true', default=False)
+    parser.add_option('--complete', dest='complete', action='store_true', default=False)
+    parser.add_option('--update', dest='update', action='store_true', default=False)
+
+    parser.add_option('--api', dest='api', action='store', default=2, type="int")
+
+    parser.add_option('--data', dest='data', action='store', default=None)
+
+    options, args = parser.parse_args()
+    if options.capture and options.api == 2:
+        print "WARNING: forcing API to 1 because --capture was specified\n"
+        options.api = 1
+
+    if options.capture and options.complete:
+        raise ValueError("cannot have both capture and complete")
+
+    show_curl_strings(options, args)
