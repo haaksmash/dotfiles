@@ -161,6 +161,7 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 map \q :q<CR>
 map \w :w<CR>
 noremap Q <nop>
+noremap <leader>b Oimport ipdb;ipdb.set_trace()<Esc>
 
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
