@@ -20,7 +20,6 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'tpope/vim-characterize'
-Bundle 'klen/python-mode'
 Bundle 'jonathanfilip/vim-lucius'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'majutsushi/tagbar'
@@ -43,31 +42,11 @@ filetype plugin indent on     " required
 
 """" PLUGIN SETTINGS
 
-""" Python-Mode settings
-let g:pymode_lint = 0
-let g:pymode_lint_checker = "pyflakes"
-
-" don't complete with rope
-let g:pymode_rope_completion = 0
-let g:pymode_rope_autoimport = 0
-
-" don't usually care about documentation
-let g:pymode_rope_lookup_project = 0
-
-" better definition keybind
-let g:pymode_rope_goto_definition_bind = 'K'
-
-let g:pymode_breakpoint_cmd = 'import ipdb;ipdb.set_trace() # FIXME: breakpoint!'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" don't autofold code
-let g:pymode_folding = 0
-""" End Python-Mode settings
+" YouCompleteMe
+nnoremap K :YcmCompleter GoTo<CR>
+nnoremap ˚ :YcmCompleter GoToDeclaration<CR>
+let g:ycm_goto_buffer_command = 'horizontal-split'
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Syntastic
 let g:syntastic_python_checkers = ['pyflakes', 'pep8', 'pep257']
