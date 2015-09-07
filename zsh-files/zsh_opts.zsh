@@ -15,6 +15,3 @@ unsetopt menu_complete # do not autoselect the first completion entry
 
 # ===== Prompt
 setopt prompt_subst
-
-autoload predict-on
-predict-on
