@@ -87,3 +87,6 @@
 [submodule "vim-files/vim/bundle/vundle"]
 	path = vim-files/vim/bundle/vundle
 	url = https://github.com/gmarik/Vundle.vim.git
+[submodule "zsh-files/antigen"]
+	path = zsh-files/antigen
+	url = https://github.com/zsh-users/antigen.git
