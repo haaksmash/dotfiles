@@ -21,30 +21,13 @@ antigen apply
 
 source ~/dotfiles/zsh-files/zsh_opts.zsh
 source ~/dotfiles/zsh-files/exports.zsh
-
+source ~/dotfiles/zsh-files/functions.zsh
+source ~/dotfiles/zsh-files/aliases.zsh
 
 zstyle :compinstall filename '/Users/haak/.zshrc'
 
 autoload -Uz compinit
 compinit
 
-function branch_prompt {
-	BRANCH=$(current_branch)
-	SHA=$(command git rev-parse --short HEAD 2> /dev/null)
-	if [[ $SHA = $BRANCH ]]; then
-		echo "$(git_prompt_long_sha)"
-	else
-		echo "$(current_branch)$(git_prompt_short_sha)"
-	fi
-}
-
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    bg
-    zle redisplay
-  else
-    zle push-input
-  fi
-}
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z

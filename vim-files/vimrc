@@ -32,6 +32,8 @@ Bundle 'myusuf3/numbers.vim'
 Bundle 'mhinz/vim-signify'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
 Bundle 'scrooloose/syntastic'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'christoomey/vim-tmux-navigator'
@@ -99,6 +101,7 @@ if v:version >= 703
 endif
 
 
+set hidden
 set showmode
 set number
 set numberwidth=1

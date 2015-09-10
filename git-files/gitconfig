@@ -1,6 +1,6 @@
 [user]
 	name = Haak Saxberg
-	email = haak.erling@gmail.com
+	email = haak@zenpayroll.com
 [color]
 	ui = auto
 [alias]
@@ -8,3 +8,5 @@
 	dc = diff --cached
 	ff = merge --ff-only
 	fa = fetch --all
+[push]
+	default = simple
