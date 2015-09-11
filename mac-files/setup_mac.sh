@@ -13,6 +13,8 @@ grab_dependencies() {
   sudo -u $(logname) brew install caskroom/cask/brew-cask
   sudo -u $(logname) brew install tmux
   sudo -u $(logname) brew cask install hammerspoon
+  sudo -u $(logname) brew cask install karabiner
+  sudo -u $(logname) brew cask install seil
 }
 
 main() {
