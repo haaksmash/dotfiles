@@ -24,6 +24,8 @@ main() {
 }
 
 install_everything() {
+	echo "setting up the mac environment"
+	bash mac-files/setup_mac.sh
 
 	echo "updating git modules..."
 	setup_gitmodules
