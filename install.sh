@@ -41,7 +41,7 @@ install_everything() {
 	symlink_files bash-files bashrc bash_profile
 
 	echo "setting up zsh files..."
-	symlink_files zsh-files zshrc oh-my-zsh
+	setup_zsh
 
 	echo "setting up powerline..."
 
@@ -71,7 +71,7 @@ symlink_files() {
 			echo "moving old .$filename to .${filename}.bak"
 			mv $HOME/.$filename $HOME/.${filename}.bak
 		fi
-		echo "linking $DIR/$source_dir/$filename $HOME/.$filename"
+		echo "linking $DIR/$source_dir/$filename -> $HOME/.$filename"
 		ln -s "$DIR/$source_dir/$filename" "$HOME/.$filename"
 	done
 }
@@ -87,6 +87,20 @@ setup_youcompleteme() {
 		cd $DIR
 		touch .youcompletemesetup
 	fi
+}
+
+setup_zsh() {
+	symlink_files zsh-files zshrc
+	symlink_antigen
+}
+
+symlink_antigen() {
+	if [ -e $HOME/antigen.zsh ]; then
+		echo "moving old antigen file to antigen.zsh.bak"
+		mv $HOME/antigen.zsh $HOME/antigen.zsh.bak
+	fi
+	echo "linking $DIR/zsh-files/antigen/antigen.zsh -> $HOME/antigen.zsh"
+	ln -s "$DIR/zsh-files/antigen/antigen.zsh" "$HOME/antigen.zsh"
 }
 
 create_local_bin() {
