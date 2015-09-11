@@ -1,6 +1,7 @@
 setopt no_beep # don't beep on error
 setopt interactive_comments # Allow comments even in interactive shells
 bindkey -v # Vim is king, Vim is life
+bindkey -M viins 'jj' vi-cmd-mode
 
 # ===== Navigation
 setopt pushd_ignore_dups
