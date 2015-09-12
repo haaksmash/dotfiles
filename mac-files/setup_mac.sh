@@ -3,18 +3,24 @@
 set -e
 
 install_homebrew() {
-  sudo -u $(logname) ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  user_command ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 grab_dependencies() {
-  sudo -u $(logname) brew install git
-  sudo -u $(logname) brew install vim
-  sudo -u $(logname) brew install zsh
-  sudo -u $(logname) brew install caskroom/cask/brew-cask
-  sudo -u $(logname) brew install tmux
-  sudo -u $(logname) brew cask install hammerspoon
-  sudo -u $(logname) brew cask install karabiner
-  sudo -u $(logname) brew cask install seil
+  user_command brew install git
+  user_command brew install vim
+  user_command brew install zsh
+  user_command brew install caskroom/cask/brew-cask
+  user_command brew install tmux
+  user_command brew install ag
+  user_command brew cask install hammerspoon
+  user_command brew cask install karabiner
+  user_command brew cask install seil
+}
+
+user_command() {
+  echo "$@"
+  sudo -u $(logname) $@
 }
 
 main() {
