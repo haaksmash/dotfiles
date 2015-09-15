@@ -170,3 +170,14 @@ hs.alert.show("Config loaded")
 hs.hotkey.bind(hyper, 'i', function()
     hs.hints.windowHints()
 end)
+
+----------------------------------------------
+-- Shortcuts to common applications
+----------------------------------------------
+local appShortcuts = {
+    ['a'] = 'Slack',
+    ['q'] = 'Rubymine',
+}
+for shortcut, appName in pairs(appShortcuts) do
+    hs.hotkey.bind({'alt', 'cmd'}, shortcut, function() hs.application.launchOrFocus(appName) end)
+end
