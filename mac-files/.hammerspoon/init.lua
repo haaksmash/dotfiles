@@ -70,7 +70,28 @@ hs.hotkey.bind(hyper, 'f', function()
 end)
 
 -----------------------------------------------
--- hyper r for top left one quarter window
+-- hyper e for top left one quarter window
+-----------------------------------------------
+
+hs.hotkey.bind(hyper, 'e', function()
+    if hs.window.focusedWindow() then
+        local win = hs.window.focusedWindow()
+        local f = win:frame()
+        local screen = win:screen()
+        local max = screen:frame()
+
+        f.x = max.x
+        f.y = max.y
+        f.w = max.w / 2
+        f.h = max.h / 2
+        win:setFrame(f)
+    else
+        hs.alert.show("No active window")
+    end
+end)
+
+-----------------------------------------------
+-- hyper r for top half window
 -----------------------------------------------
 
 hs.hotkey.bind(hyper, 'r', function()
@@ -82,7 +103,7 @@ hs.hotkey.bind(hyper, 'r', function()
 
         f.x = max.x
         f.y = max.y
-        f.w = max.w / 2
+        f.w = max.w
         f.h = max.h / 2
         win:setFrame(f)
     else
@@ -112,10 +133,10 @@ hs.hotkey.bind(hyper, 't', function()
 end)
 
 -----------------------------------------------
--- hyper v for bottom left one quarter window
+-- hyper b for bottom left one quarter window
 -----------------------------------------------
 
-hs.hotkey.bind(hyper, 'v', function()
+hs.hotkey.bind(hyper, 'b', function()
     if hs.window.focusedWindow() then
         local win = hs.window.focusedWindow()
         local f = win:frame()
@@ -125,6 +146,27 @@ hs.hotkey.bind(hyper, 'v', function()
         f.x = max.x + (max.w / 2)
         f.y = max.y + (max.h / 2)
         f.w = max.w / 2
+        f.h = max.h / 2
+        win:setFrame(f)
+    else
+        hs.alert.show("No active window")
+    end
+end)
+
+-----------------------------------------------
+-- hyper v for bottom right one quarter window
+-----------------------------------------------
+
+hs.hotkey.bind(hyper, 'v', function()
+    if hs.window.focusedWindow() then
+        local win = hs.window.focusedWindow()
+        local f = win:frame()
+        local screen = win:screen()
+        local max = screen:frame()
+
+        f.x = max.x
+        f.y = max.y + (max.h / 2)
+        f.w = max.w
         f.h = max.h / 2
         win:setFrame(f)
     else
