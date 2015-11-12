@@ -13,6 +13,7 @@ grab_dependencies() {
   user_command brew install caskroom/cask/brew-cask
   user_command brew install tmux
   user_command brew install ag
+  user_command brew install direnv
   user_command brew cask install hammerspoon
   user_command brew cask install karabiner
   user_command brew cask install seil

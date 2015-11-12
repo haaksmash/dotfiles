@@ -10,3 +10,5 @@
 	fa = fetch --all
 [push]
 	default = simple
+[core]
+	excludesfile = ~/.gitignore
