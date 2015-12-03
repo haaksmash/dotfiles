@@ -42,7 +42,8 @@ Plugin 'tpope/vim-rails'
 
 Plugin 'tpope/vim-endwise'
 
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
+Plugin 'benekastah/neomake'
 Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'kchmck/vim-coffee-script'
@@ -88,6 +89,9 @@ let g:indent_guides_start_level = 2
 " Syntastic
 let g:syntastic_quiet_messages = {'level': []} " do NOT silence warnings
 let g:syntastic_aggregate_errors = 1
+
+"Neomake
+autocmd! BufWritePost * Neomake
 
 """" END PLUGIN SETTINGS
 
