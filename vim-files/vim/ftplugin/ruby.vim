@@ -1,5 +1,5 @@
-" Syntastic
-let g:syntastic_ruby_checkers = ['rubocop']
+" Neomake
+let g:neomake_ruby_enabled_makers = ['rubocop']
 
 " vim-rspec mappings
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>

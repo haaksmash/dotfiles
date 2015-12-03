@@ -99,7 +99,6 @@ let mapleader=","
 set nobackup
 set noswapfile
 set pastetoggle=<F2>
-set shell=/bin/sh
 
 filetype on
 filetype plugin indent on
@@ -189,6 +188,9 @@ endfunction
 noremap ; :
 inoremap jj <Esc>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+"terminal remaps
+tnoremap <Esc> <C-\><C-n>
+
 "nnoremap <leader>d :NERDTreeToggle<cr>
 map \q :q<CR>
 map \w :w<CR>
