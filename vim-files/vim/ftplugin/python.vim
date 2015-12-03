@@ -1,4 +1,3 @@
-
 " Syntastic
 let g:syntastic_python_checkers = ['pyflakes', 'pep8', 'pep257']
 let g:syntastic_python_pep8_args='--ignore=E501'
