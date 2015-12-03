@@ -8,12 +8,22 @@ install_homebrew() {
 
 grab_dependencies() {
   user_command brew install git
+
   user_command brew install vim
+
+  easy_install pip
+  pip install neovim
+  user_command brew install python3
+  user_command pip3 install neovim
+  user_command brew install neovim/neovim/neovim
+
   user_command brew install zsh
-  user_command brew install caskroom/cask/brew-cask
+
   user_command brew install tmux
   user_command brew install ag
   user_command brew install direnv
+
+  user_command brew install caskroom/cask/brew-cask
   user_command brew cask install hammerspoon
   user_command brew cask install karabiner
   user_command brew cask install seil

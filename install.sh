@@ -36,6 +36,10 @@ install_everything() {
 	vim +BundleInstall +qall
 	setup_youcompleteme
 
+  echo "setting up neovim files..."
+  mkdir ~/.config
+  ln -s ~/.vim ~/.config/nvim
+
 	echo "setting up tmux files..."
 	symlink_files tmux-files tmux.conf
 
