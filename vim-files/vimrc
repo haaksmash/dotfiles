@@ -12,6 +12,7 @@ call vundle#rc()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/vundle'
 
+Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-endwise'
 Plugin 'danro/rename.vim'
 Plugin 'pbrisbin/vim-mkdir'
@@ -48,9 +49,6 @@ filetype plugin indent on     " required
 """ end vundle
 
 """" PLUGIN SETTINGS
-
-" Powerline!
-set rtp+=~/dotfiles/misc-files/powerline/powerline/bindings/vim
 "
 """ Easymotion
 map / <Plug>(easymotion-sn)
@@ -95,7 +93,6 @@ set t_Co=256
 if &term =~ 'xterm-color'
     set t_ut=
 endif
-let g:Powerline_symbols = 'fancy'
 set nocompatible
 set laststatus=2
 

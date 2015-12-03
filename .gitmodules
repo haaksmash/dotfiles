@@ -63,9 +63,6 @@
 [submodule "vim-files/.vim/bundle/rainbow_parentheses"]
 	path = vim-files/.vim/bundle/rainbow_parentheses
 	url = https://github.com/kien/rainbow_parentheses.vim.git
-[submodule "misc-files/powerline"]
-	path = misc-files/powerline
-	url = https://github.com/Lokaltog/powerline.git
 [submodule "vim-files/.vim/bundle/jedi-vim"]
 	path = vim-files/.vim/bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
