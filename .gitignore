@@ -1,3 +1,4 @@
 *.sw*
 vim-files/vim/bundle
+vim-files/vim/undofiles/
 .youcompletemesetup
