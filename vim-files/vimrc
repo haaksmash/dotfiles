@@ -38,6 +38,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/syntastic'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
 
 " YouCompleteMe
 nnoremap K :YcmCompleter GoTo<CR>
