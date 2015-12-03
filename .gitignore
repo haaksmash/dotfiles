@@ -1,5 +1,7 @@
 *.sw*
 vim-files/vim/bundle
+vim-files/vim/plugged/
 vim-files/vim/undofiles/
 .youcompletemesetup
 vim-files/vim/.init.vim-rplugin~
+vim-files/vim/.netrwhist
