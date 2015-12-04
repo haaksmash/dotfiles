@@ -29,12 +29,12 @@ Plug 'SirVer/ultisnips'
 
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
+Plug 'janko-m/vim-test'
 
 Plug 'tpope/vim-endwise'
 
@@ -92,9 +92,14 @@ autocmd! BufWritePost * Neomake
 
 " NERDTree
 let NERDTreeHijackNetrw = 1
-map \q :q<CR>
-map \w :w<CR>
-noremap Q <nop>
+let g:netrw_liststyle = 3 " let netrw look like NERDTree
+
+" Vim-Test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 """" END PLUGIN SETTINGS
 
 let mapleader=","
@@ -190,8 +195,14 @@ endfunction
 noremap ; :
 inoremap jj <Esc>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map \q :q<CR>
+map \w :w<CR>
+noremap Q <nop>
+
 "terminal remaps
-tnoremap <Esc> <C-\><C-n>
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+endif
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
