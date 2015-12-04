@@ -88,7 +88,7 @@ setup_youcompleteme() {
 		echo "YouCompleteMe already setup, skipping... (remove .youcompletemesetup to force)"
 	else
 		echo "setting up YouCompleteMe..."
-		cd vim-files/vim/bundle/YouCompleteMe
+		cd vim-files/vim/plugged/YouCompleteMe
 		./install.sh --clang-completer
 		cd $DIR
 		touch .youcompletemesetup
