@@ -9,7 +9,6 @@ Plug 'tpope/vim-sensible'
 Plug 'nanotech/jellybeans.vim'
 
 Plug 'bling/vim-airline'
-Plug 'bling/vim-bufferline'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -27,6 +26,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'zhaocai/GoldenView.Vim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
@@ -41,8 +41,10 @@ Plug 'tpope/vim-endwise'
 Plug 'benekastah/neomake'
 Plug 'Valloric/YouCompleteMe'
 
+Plug 'pangloss/vim-javascript'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mtscout6/vim-cjsx'
+Plug 'mxw/vim-jsx'
 
 call plug#end()
 
@@ -106,7 +108,7 @@ endif
 " UltiSnips
 let g:UltiSnipsUsePythonVersion = 2 " required for YCM compat
 let g:ulti_expand_or_jump_res = 0
-function ExpandSnippetOrCarriageReturn()
+function! ExpandSnippetOrCarriageReturn()
     let snippet = UltiSnips#ExpandSnippetOrJump()
     if g:ulti_expand_or_jump_res > 0
         return snippet
@@ -114,10 +116,13 @@ function ExpandSnippetOrCarriageReturn()
         return "\<CR>"
     endif
 endfunction
-inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
 " IndentGuides
 let g:indent_guides_enable_on_vim_startup = 1
+
+" GoldenView
+autocmd BufRead * EnableGoldenViewAutoResize
+let g:goldenview__enable_default_mapping = 0
 
 """" END PLUGIN SETTINGS
 
@@ -191,24 +196,8 @@ set nofoldenable
 "recalculate the trailing whitespace warning when idle, and after saving
 autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
-"return '[\s]' if trailing white space is detected return '' otherwise
-function! StatuslineTrailingSpaceWarning()
-    if !exists("b:statusline_trailing_space_warning")
-
-        if !&modifiable
-            let b:statusline_trailing_space_warning = ''
-            return b:statusline_trailing_space_warning
-        endif
-
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[\s]'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
-    endif
-    return b:statusline_trailing_space_warning
-endfunction
-
+" strip trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
 
 """ Handy remaps
 noremap ; :
@@ -239,71 +228,6 @@ set mouse=a
 
 """ smart path
 set path=.,,**
-
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  echo a:cmdline
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-     if part[0] =~ '\v[%#<]'
-        let expanded_part = fnameescape(expand(part))
-        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-     endif
-  endfor
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, 'You entered:    ' . a:cmdline)
-  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  call setline(3,substitute(getline(2),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  setlocal nomodifiable
-  1
-endfunction
-
-
-function! MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-function! MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
 
 " Local overrides?
 if filereadable($HOME . "/.vimrc.local")
