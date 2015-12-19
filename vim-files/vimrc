@@ -12,6 +12,7 @@ Plug 'bling/vim-airline'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'danro/rename.vim'
 Plug 'pbrisbin/vim-mkdir'
@@ -94,6 +95,9 @@ autocmd! BufWritePost * Neomake
 
 " NERDTree / netrw
 let g:netrw_liststyle = 3 " let netrw look like NERDTree
+
+" Rainbow parentheses
+autocmd VimEnter * RainbowParenthesesToggleAll
 
 " Vim-Test
 nmap <silent> <leader>t :TestNearest<CR>
