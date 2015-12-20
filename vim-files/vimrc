@@ -134,6 +134,7 @@ let mapleader=","
 set nobackup
 set noswapfile
 set pastetoggle=<F2>
+set nowrap
 
 filetype on
 filetype plugin indent on
