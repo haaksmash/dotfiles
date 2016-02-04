@@ -12,6 +12,7 @@ Plug 'bling/vim-airline'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'danro/rename.vim'
 Plug 'pbrisbin/vim-mkdir'
@@ -49,7 +50,7 @@ Plug 'mxw/vim-jsx'
 call plug#end()
 
 filetype plugin indent on     " required
-""" end vundle
+""" end vim-plug
 
 """" PLUGIN SETTINGS
 
@@ -95,6 +96,9 @@ autocmd! BufWritePost * Neomake
 " NERDTree / netrw
 let g:netrw_liststyle = 3 " let netrw look like NERDTree
 
+" Rainbow parentheses
+autocmd VimEnter * RainbowParenthesesToggleAll
+
 " Vim-Test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -130,6 +134,7 @@ let mapleader=","
 set nobackup
 set noswapfile
 set pastetoggle=<F2>
+set nowrap
 
 filetype on
 filetype plugin indent on

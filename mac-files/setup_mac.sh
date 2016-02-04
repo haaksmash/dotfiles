@@ -24,6 +24,7 @@ grab_dependencies() {
   user_command brew install direnv
 
   user_command brew install caskroom/cask/brew-cask
+  user_command brew cask install iterm2
   user_command brew cask install hammerspoon
   user_command brew cask install karabiner
   user_command brew cask install seil
@@ -34,8 +35,17 @@ user_command() {
   sudo -u $(logname) $@
 }
 
+change_shell_to_zsh() {
+  if grep -Fqx "$ZSH_PATH" /etc/shells; then
+    echo "zsh already an allowed default shell :)"
+  else
+    echo "$(which zsh)" >> /etc/shells
+  fi
+  chsh -s $(which zsh)
+}
+
 main() {
-  # abort if homebrew is already installed; we don't want to accidentaly stomp on things
+  # abort if homebrew is already installed; we don't want to accidentally stomp on things
   if type brew &> /dev/null; then
     if [[ "$1" != "--force" ]]; then
       echo "homebrew is already installed; this mac has probably been set up already!"
@@ -52,15 +62,6 @@ main() {
     change_shell_to_zsh
   fi
   echo "done setting up the mac!"
-}
-
-change_shell_to_zsh() {
-  if grep -Fqx "$ZSH_PATH" /etc/shells; then
-    echo "zsh already an allowed default shell :)"
-  else
-    echo "$(which zsh)" >> /etc/shells
-  fi
-  chsh -s $(which zsh)
 }
 
 main $@
