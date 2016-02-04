@@ -1,10 +1,26 @@
---------------------------------------------
+-----------------------------------------------
 -- Set up
 -----------------------------------------------
 
+local tiling = require "hs.tiling"
+local hotkey = require "hs.hotkey"
 local hyper = {"shift", "cmd", "alt", "ctrl"}
+local mash = {"ctrl", "cmd"}
 
 hs.window.animationDuration = 0
+
+
+-----------------------------------------------
+-- auto-tile commands
+-----------------------------------------------
+
+hotkey.bind(mash, "j", function() tiling.cycle(1) end)
+hotkey.bind(mash, "k", function() tiling.cycle(-1) end)
+hotkey.bind(mash, "space", function() tiling.promote() end)
+hotkey.bind(mash, "f", function() tiling.goToLayout("fullscreen") end)
+hotkey.bind(mash, "f", function() tiling.goToLayout("fullscreen") end)
+hotkey.bind(mash, "r", function() tiling.goToLayout("main-vertical") end)
+hotkey.bind(mash, "c", function() tiling.goToLayout("columns") end)
 
 -----------------------------------------------
 -- hyper d for left one half window
