@@ -84,3 +84,6 @@
 [submodule "zsh-files/antigen"]
 	path = zsh-files/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "mac-files/.hammerspoon/hs/tiling"]
+	path = mac-files/.hammerspoon/hs/tiling
+	url = https://github.com/dsanson/hs.tiling.git
