@@ -8,6 +8,16 @@ Plug 'tpope/vim-sensible'
 
 Plug 'nanotech/jellybeans.vim'
 
+Plug 'pangloss/vim-javascript'
+Plug 'kchmck/vim-coffee-script'
+Plug 'mtscout6/vim-cjsx'
+Plug 'mxw/vim-jsx'
+Plug 'elixir-lang/vim-elixir'
+Plug 'vim-ruby/vim-ruby'
+Plug 'lambdatoast/elm.vim'
+
+Plug 'tpope/vim-rails'
+
 Plug 'bling/vim-airline'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
@@ -20,12 +30,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'terryma/vim-multiple-cursors'
 
 Plug 'tpope/vim-eunuch'
 
 Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'zhaocai/GoldenView.Vim'
 
@@ -33,19 +41,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
 Plug 'janko-m/vim-test'
 
 Plug 'tpope/vim-endwise'
 
 Plug 'benekastah/neomake'
-Plug 'Valloric/YouCompleteMe'
-
-Plug 'pangloss/vim-javascript'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mtscout6/vim-cjsx'
-Plug 'mxw/vim-jsx'
+Plug 'Valloric/YouCompleteMe', { 'do': 'yes \| ./install.sh' }
 
 call plug#end()
 
@@ -91,6 +92,8 @@ let g:syntastic_quiet_messages = {'level': []} " do NOT silence warnings
 let g:syntastic_aggregate_errors = 1
 
 " Neomake
+" elixir maker executes code, jesus
+let g:neomake_elixir_enabled_makers = []
 autocmd! BufWritePost * Neomake
 
 " NERDTree / netrw
