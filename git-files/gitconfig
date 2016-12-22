@@ -12,3 +12,5 @@
 	default = simple
 [core]
 	excludesfile = ~/.gitignore
+[flowhub "auth"]
+	token = 329d8c80fdf2c904ea7c1f3da330a6741e98a5aa
