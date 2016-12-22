@@ -22,7 +22,6 @@ Plug 'bling/vim-airline'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'danro/rename.vim'
 Plug 'pbrisbin/vim-mkdir'
@@ -47,6 +46,8 @@ Plug 'tpope/vim-endwise'
 
 Plug 'benekastah/neomake'
 Plug 'Valloric/YouCompleteMe', { 'do': 'yes \| ./install.sh' }
+
+Plug 'luochen1990/rainbow'
 
 call plug#end()
 
@@ -80,9 +81,10 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+let g:ctrlp_custom_ignore="node_modules\|\.git\|_build"
 
-" Gundo
-map <leader>u :GundoToggle<CR>
+" Mundo
+map <leader>u :MundoToggle<CR>
 
 " Indent guides
 let g:indent_guides_start_level = 2
@@ -100,7 +102,12 @@ autocmd! BufWritePost * Neomake
 let g:netrw_liststyle = 3 " let netrw look like NERDTree
 
 " Rainbow parentheses
-autocmd VimEnter * RainbowParenthesesToggleAll
+let g:rainbow_conf = {
+\ 'guifgs': ['RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3'],
+\ 'ctermfgs': ['red', 'brown', 'blue', 'gray', 'green', 'magenta', 'cyan', 'darkred', 'brown', 'darkblue', 'gray', 'darkgreen', 'darkmagenta', 'darkcyan', 'red'],
+\ 'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold']
+\}
+let g:rainbow_active = 1
 
 " Vim-Test
 nmap <silent> <leader>t :TestNearest<CR>
@@ -139,9 +146,9 @@ set noswapfile
 set pastetoggle=<F2>
 set nowrap
 
+syntax on
 filetype on
 filetype plugin indent on
-syntax on
 
 try
   colorscheme jellybeans
@@ -218,6 +225,7 @@ noremap Q <nop>
 "terminal remaps
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
+  nnoremap <leader>o :below 10sp term://$SHELL<cr>i
 endif
 
 " Quicker window movement
