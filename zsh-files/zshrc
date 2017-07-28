@@ -12,8 +12,10 @@ antigen bundle rupa/z
 antigen bundle git
 
 # OSX specific
-antigen bundle brew
-antigen bundle brew-cask
+if [[ "$(uname -s)" = "Darwin" ]]; then
+  antigen bundle brew
+  antigen bundle brew-cask
+fi
 
 antigen theme bureau
 
@@ -34,15 +36,11 @@ bindkey '^Z' fancy-ctrl-z
 
 eval "$(direnv hook zsh)"
 
-# load RVM if it exists
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 export NVM_DIR="/home/haak/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 autoload bashcompinit
+export PATH="$HOME/.linuxbrew/bin:$PATH"
 bashcompinit
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash

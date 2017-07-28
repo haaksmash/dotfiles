@@ -1,5 +1,5 @@
 " Neomake
-let g:neomake_python_enabled_makers = ['pyflakes', 'pep8']
+let g:neomake_python_enabled_makers = ['flake8']
 
 """ Handy remaps
 noremap <leader>b Oimport ipdb;ipdb.set_trace()<Esc>
