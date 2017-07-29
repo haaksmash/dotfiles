@@ -8,47 +8,46 @@ Plug 'tpope/vim-sensible'
 
 Plug 'nanotech/jellybeans.vim'
 
+Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+Plug 'kchmck/vim-coffee-script'
+  Plug 'mtscout6/vim-cjsx'
+Plug 'elixir-lang/vim-elixir'
+  Plug 'slashmili/alchemist.vim'
+Plug 'vim-ruby/vim-ruby'
+  Plug 'tpope/vim-bundler'
+  Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
+Plug 'ElmCast/elm-vim'
+
 Plug 'bling/vim-airline'
+Plug 'luochen1990/rainbow'
 Plug 'myusuf3/numbers.vim'
 Plug 'mhinz/vim-signify'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'kien/rainbow_parentheses.vim'
 
 Plug 'danro/rename.vim'
 Plug 'pbrisbin/vim-mkdir'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/tpope-vim-abolish'
-Plug 'terryma/vim-multiple-cursors'
-
 Plug 'tpope/vim-eunuch'
+Plug 'junegunn/vim-easy-align'
 
 Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips'
 Plug 'zhaocai/GoldenView.Vim'
 
-
+Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'janko-m/vim-test'
 
-Plug 'tpope/vim-endwise'
-
-Plug 'benekastah/neomake'
-Plug 'Valloric/YouCompleteMe'
-
-Plug 'vim-ruby/vim-ruby'
-Plug 'elmcast/elm-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mtscout6/vim-cjsx'
-Plug 'mxw/vim-jsx'
-
-Plug 'tpope/vim-rails'
+Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe', { 'do': 'yes \| ./install.py --tern-completer' }
 
 call plug#end()
 
@@ -62,6 +61,9 @@ nnoremap K :YcmCompleter GoTo<CR>
 nnoremap ˚ :YcmCompleter GoToDeclaration<CR>
 let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_semantic_triggers = {
+      \ 'elm' : ['.'],
+      \}
 
 " Easymotion
 map / <Plug>(easymotion-sn)
@@ -82,9 +84,10 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+let g:ctrlp_custom_ignore="node_modules\|\.git\|_build"
 
-" Gundo
-map <leader>u :GundoToggle<CR>
+" Mundo
+map <leader>u :MundoToggle<CR>
 
 " Indent guides
 let g:indent_guides_start_level = 2
@@ -93,14 +96,16 @@ let g:indent_guides_start_level = 2
 let g:syntastic_quiet_messages = {'level': []} " do NOT silence warnings
 let g:syntastic_aggregate_errors = 1
 
-" Neomake
-autocmd! BufWritePost * Neomake
-
 " NERDTree / netrw
 let g:netrw_liststyle = 3 " let netrw look like NERDTree
 
 " Rainbow parentheses
-autocmd VimEnter * RainbowParenthesesToggleAll
+let g:rainbow_conf = {
+\ 'guifgs': ['RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'DarkOrchid3', 'firebrick3', 'RoyalBlue3', 'SeaGreen3', 'DarkOrchid3', 'firebrick3'],
+\ 'ctermfgs': ['red', 'brown', 'blue', 'gray', 'green', 'magenta', 'cyan', 'darkred', 'brown', 'darkblue', 'gray', 'darkgreen', 'darkmagenta', 'darkcyan', 'red'],
+\ 'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold']
+\}
+let g:rainbow_active = 1
 
 " Vim-Test
 nmap <silent> <leader>t :TestNearest<CR>
@@ -113,16 +118,8 @@ if has('nvim')
 endif
 
 " UltiSnips
-let g:UltiSnipsUsePythonVersion = 2 " required for YCM compat
+let g:UltiSnipsUsePythonVersion = 3 " required for YCM compat
 let g:ulti_expand_or_jump_res = 0
-function! ExpandSnippetOrCarriageReturn()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<CR>"
-    endif
-endfunction
 
 " IndentGuides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -130,6 +127,10 @@ let g:indent_guides_enable_on_vim_startup = 1
 " GoldenView
 autocmd BufRead * EnableGoldenViewAutoResize
 let g:goldenview__enable_default_mapping = 0
+
+" Easy Align
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 """" END PLUGIN SETTINGS
 
@@ -139,9 +140,9 @@ set noswapfile
 set pastetoggle=<F2>
 set nowrap
 
+syntax on
 filetype on
 filetype plugin indent on
-syntax on
 
 try
   colorscheme jellybeans
@@ -199,6 +200,8 @@ set hlsearch
 set gdefault
 
 """ Folding
+set foldmethod=syntax
+set foldlevel=1
 set nofoldenable
 
 "recalculate the trailing whitespace warning when idle, and after saving
@@ -210,7 +213,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 """ Handy remaps
 noremap ; :
 inoremap jj <Esc>
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+map <silent> <leader>V :source ~/.config/nvim/init.vim<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 map \q :q<CR>
 map \w :w<CR>
 noremap Q <nop>
@@ -218,6 +221,7 @@ noremap Q <nop>
 "terminal remaps
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
+  nnoremap <leader>o :below 10sp term://$SHELL<cr>i
 endif
 
 " Quicker window movement
