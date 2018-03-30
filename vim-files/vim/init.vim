@@ -19,6 +19,7 @@ Plug 'vim-ruby/vim-ruby'
   Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
 Plug 'ElmCast/elm-vim'
+Plug 'lervag/vimtex'
 
 Plug 'bling/vim-airline'
 Plug 'luochen1990/rainbow'
