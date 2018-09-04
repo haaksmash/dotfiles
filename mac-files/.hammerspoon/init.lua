@@ -234,7 +234,7 @@ end)
 ----------------------------------------------
 local appShortcuts = {
     ['a'] = 'Slack',
-    ['q'] = 'Rubymine',
+    ['q'] = 'iTerm2',
 }
 for shortcut, appName in pairs(appShortcuts) do
     hs.hotkey.bind({'alt', 'cmd'}, shortcut, function() hs.application.launchOrFocus(appName) end)

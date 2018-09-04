@@ -8,8 +8,12 @@ Plug 'tpope/vim-sensible'
 
 Plug 'nanotech/jellybeans.vim'
 
+Plug 'junegunn/fzf', { 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+
 Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
+  Plug 'flowtype/vim-flow'
 Plug 'kchmck/vim-coffee-script'
   Plug 'mtscout6/vim-cjsx'
 Plug 'elixir-lang/vim-elixir'
@@ -59,12 +63,20 @@ filetype plugin indent on     " required
 
 " YouCompleteMe
 nnoremap K :YcmCompleter GoTo<CR>
-nnoremap ˚ :YcmCompleter GoToDeclaration<CR>
+nnoremap ˚ :YcmCompleter GoToDefinition<CR>
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_semantic_triggers = {
       \ 'elm' : ['.'],
       \}
+
+" vim-javascript
+let g:javascript_plugin_flow = 1
+
+" vim-flow
+let g:flow#showquickfix = 0 " we use ale for showing issues, no need to pop up the list
 
 " Easymotion
 map / <Plug>(easymotion-sn)
@@ -74,12 +86,16 @@ map N <Plug>(easymotion-prev)
 let g:EasyMotion_landing_highlight = 0
 
 " CtrlP
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
+if executable('rg')
+  " Use rg over Grep
+  set grepprg=rg\ --files\ --hidden\ --smartcase\ --glob\ \"!.git/*\"
+  " rg is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  " Use ag in CtrlP for listing files; respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
@@ -217,7 +233,6 @@ inoremap jj <Esc>
 map <silent> <leader>V :source ~/.config/nvim/init.vim<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 map \q :q<CR>
 map \w :w<CR>
-noremap Q <nop>
 
 "terminal remaps
 if has('nvim')

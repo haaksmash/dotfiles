@@ -15,3 +15,5 @@ export RUBY_HEAP_FREE_MIN=100000
 
 export ZPDEBUG_LIVE_EDIT=1
 export ZPDEBUG_LIVE_EDIT_PORT=1337
+
+export FZF_DEFAULT_COMMAND='rg --no-ignore --follow --files --hidden --smartcase --glob "!.git/*"'

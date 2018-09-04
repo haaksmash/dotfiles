@@ -1,2 +1,2 @@
 " Vim-Test
-let test#ruby#rspec#executable = 'bundle exec rspec'
+" let test#ruby#rspec#executable = 'spring rspec'
